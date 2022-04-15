@@ -5,8 +5,14 @@
     "keywords": ["behat", "jira", "xray", "report", "issue"],
     "require": {
         "php": ">=7.4",
+        "ext-json": "*",
         "behat/behat": "^3.8",
-        "pietaj/behat-cucumber-json-formatter": "^1.0"
+        "pietaj/behat-cucumber-json-formatter": "^1.0",
+        "symfony/finder": "^5.0",
+        "symfony/http-client": "^5.0",
+        "symfony/mime": "^5.0"
+    },
+    "require-dev": {
     },
     "autoload": {
         "psr-4": {

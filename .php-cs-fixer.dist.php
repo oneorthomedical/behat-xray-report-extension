@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 $finder = PhpCsFixer\Finder::create()
-    ->in('src')->exclude(['Application', 'Assets'])->in('tests')
+    ->in('src')
+    //->exclude(['Application', 'Assets'])->in('tests')
     ->files()->name('*.php');
 
 $config = new PhpCsFixer\Config();
