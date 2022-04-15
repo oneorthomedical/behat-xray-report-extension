@@ -49,7 +49,6 @@ final class XrayReportExtension implements Extension
             ->children()
             ->scalarNode('xray_api_url')->cannotBeEmpty()->isRequired()->end()
             ->scalarNode('jira_project_key')->cannotBeEmpty()->isRequired()->end()
-            ->scalarNode('features_path')->cannotBeEmpty()->isRequired()->end()
             ->scalarNode('json_report_path')->cannotBeEmpty()->isRequired()->end()
             ->end();
     }
@@ -80,7 +79,6 @@ final class XrayReportExtension implements Extension
 
         $definition = new Definition(FeatureUpdater::class);
         $definition->addArgument(new Reference(Client::class));
-        $definition->addArgument($config['features_path']);
         $definition->addTag(EventDispatcherExtension::SUBSCRIBER_TAG);
 
         $container->setDefinition(FeatureUpdater::class, $definition);

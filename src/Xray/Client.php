@@ -33,6 +33,7 @@ final class Client
 
     public function uploadFeatureFile(string $path)
     {
+        printf("Upload: $path  \n");
         $token = $this->authenticate();
 
         $formData = new FormDataPart(['file' => DataPart::fromPath($path)]);
