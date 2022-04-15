@@ -65,6 +65,10 @@ final class XrayReportExtension implements Extension
         }
 
         $envValues = getenv();
+        if (isset($envValues['XRAY_DISABLE_UPLOAD'])) {
+            return;
+        }
+
         if (!isset($envValues['XRAY_CLIENT_ID']) || !isset($envValues['XRAY_CLIENT_SECRET'])) {
             throw new XrayReportException('Environement variables "XRAY_CLIENT_ID" or "XRAY_CLIENT_SECRET" are not set.');
         }
