@@ -1,0 +1,25 @@
+{
+    "name": "macintoshplus/behat-xray-report-extension",
+    "license": "proprietary",
+    "description": "Send Features and JSON Cucumber result on XRAY Saas",
+    "keywords": ["behat", "jira", "xray", "report", "issue"],
+    "require": {
+        "php": ">=7.4",
+        "behat/behat": "^3.8",
+        "pietaj/behat-cucumber-json-formatter": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BehatXrayReport\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/pietaj/behat-cucumber-formatter.git"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    }
+}
