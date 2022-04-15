@@ -33,7 +33,6 @@ final class Client
 
     public function uploadFeatureFile(string $path)
     {
-        printf("Upload: $path  \n");
         $token = $this->authenticate();
 
         $formData = new FormDataPart(['file' => DataPart::fromPath($path)]);
@@ -88,6 +87,7 @@ final class Client
         ]);
 
         if ($response->getStatusCode() !== 200) {
+            var_dump($response->getContent(false));
             throw new XrayReportException('Authentication fail ('.$response->getStatusCode().')');
         }
 
