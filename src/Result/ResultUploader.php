@@ -33,7 +33,8 @@ final class ResultUploader implements EventSubscriberInterface
         $finder = new Finder();
         $finder->files()->name('*.json')->in($this->resultPath);
         foreach ($finder as $file) {
-            $this->client->uploadResultJson($file->getRealPath());
+            $response = $this->client->uploadResultJson($file->getRealPath());
+            $this->client->editExecutionTestResult(json_decode($response));
         }
     }
 }

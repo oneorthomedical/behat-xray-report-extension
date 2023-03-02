@@ -16,19 +16,31 @@ final class Client
     private string $clientId;
     private string $clientSecret;
 
+    private string $browser;
+    private string $platformVersion;
+
     private HttpClientInterface $clientHttp;
 
     private ?int $expireAt = null;
     private ?string $actualToken = null;
     private string $projectKey;
 
-    public function __construct(string $apiUrl, string $clientId, string $clientSecret, string $projectKey)
+    public function __construct(
+        string $apiUrl,
+        string $clientId,
+        string $clientSecret,
+        string $projectKey,
+        string $browser,
+        string $platformVersion
+    )
     {
         $this->apiUrl = rtrim($apiUrl, '/');
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
         $this->clientHttp = HttpClient::create();
         $this->projectKey = $projectKey;
+        $this->browser = $browser;
+        $this->platformVersion = $platformVersion;
     }
 
     public function uploadFeatureFile(string $path)
@@ -63,6 +75,27 @@ final class Client
             var_dump($response->getContent(false));
             throw new XrayReportException('Upload result file fail ('.$response->getStatusCode().'): File: '.$resultPath);
         }
+
+        return $response->getContent();
+    }
+
+    public function editExecutionTestResult(array $data)
+    {
+        $now = new \DateTime();
+        $body = [
+            "fields" => [
+                "summary" => $now->format('d.m.Y')."-".$this->browser."-".$this->platformVersion,
+                "customfield_10131" => "chrome_version",
+                "customfield_10130" => [
+                    "value" => "Windows"
+                ]
+            ]
+        ];
+
+        $this->clientHttp->request('POST', $data['self'], [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode($body),
+        ]);
     }
 
     /**
