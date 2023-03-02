@@ -1,5 +1,5 @@
 {
-    "name": "macintoshplus/behat-xray-report-extension",
+    "name": "oneortho/behat-xray-report-extension",
     "license": "proprietary",
     "description": "Send Features and JSON Cucumber result on XRAY Saas",
     "keywords": ["behat", "jira", "xray", "report", "issue"],
