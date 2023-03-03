@@ -104,7 +104,7 @@ final class Client
             'body' => json_encode($body),
         ]);
 
-        if ($response->getStatusCode() !== 200 || $response->getStatusCode() !== 204) {
+        if ($response->getStatusCode() !== 200 && $response->getStatusCode() !== 204) {
             var_dump($response->getContent(false));
             throw new XrayReportException('Edit execution result fail - status '.$response->getStatusCode());
         }
