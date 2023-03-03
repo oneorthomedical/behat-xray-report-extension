@@ -16,6 +16,9 @@ final class Client
     private string $clientId;
     private string $clientSecret;
 
+    private string $jiraUrl;
+    private string $jiraClient;
+    private string $jiraToken;
     private string $browser;
     private string $platformVersion;
 
@@ -30,6 +33,9 @@ final class Client
         string $clientId,
         string $clientSecret,
         string $projectKey,
+        string $jiraUrl,
+        string $jiraClient,
+        string $jiraToken,
         string $browser,
         string $platformVersion
     )
@@ -39,6 +45,9 @@ final class Client
         $this->clientSecret = $clientSecret;
         $this->clientHttp = HttpClient::create();
         $this->projectKey = $projectKey;
+        $this->jiraUrl = $jiraUrl;
+        $this->jiraClient = $jiraClient;
+        $this->jiraToken = $jiraToken;
         $this->browser = $browser;
         $this->platformVersion = $platformVersion;
     }
@@ -81,6 +90,7 @@ final class Client
 
     public function editExecutionTestResult($data)
     {
+        $token = $this->authenticateToJira();
         $now = new \DateTime();
         $body = [
             "fields" => [
@@ -93,6 +103,7 @@ final class Client
         ];
 
         $response = $this->clientHttp->request('PUT', $data->self, [
+            'auth_bearer' => $token,
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode($body),
         ]);
@@ -146,5 +157,20 @@ final class Client
         $this->actualToken = $token;
 
         return $token;
+    }
+
+    private function authenticateToJira(): string
+    {
+        $response = $this->clientHttp->request('GET', $this->jiraUrl, [
+            'auth_basic' => [$this->jiraClient, $this->jiraToken],
+            'headers' => ['Content-Type' => 'application/json']
+        ]);
+
+        if ($response->getStatusCode() !== 200) {
+            var_dump($response->getContent(false));
+            throw new XrayReportException('Authentication to jira fail ('.$response->getStatusCode().')');
+        }
+
+        return (string) json_decode($response->getContent(false), true);
     }
 }

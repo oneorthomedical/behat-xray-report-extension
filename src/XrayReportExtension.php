@@ -81,6 +81,7 @@ final class XrayReportExtension implements Extension
         $definition->addArgument((string) $envValues['XRAY_CLIENT_SECRET']);
         $definition->addArgument($config['jira_project_key']);
 
+        $definition->addArgument($config['jira_api_url']);
         $definition->addArgument($config['browser']);
         $definition->addArgument($config['platform_version']);
 
