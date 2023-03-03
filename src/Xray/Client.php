@@ -91,7 +91,7 @@ final class Client
         $body = [
             "fields" => [
                 "summary" => $now->format('d.m.Y')."-".$this->browser."-".$this->platformVersion,
-                "customfield_10131" => "chrome_version",
+                "customfield_10131" => "100",
                 "customfield_10130" => [
                     "value" => "Windows"
                 ]
