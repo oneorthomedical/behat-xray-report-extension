@@ -52,8 +52,6 @@ final class XrayReportExtension implements Extension
             ->scalarNode('json_report_path')->cannotBeEmpty()->isRequired()->end()
             ->scalarNode('browser')->cannotBeEmpty()->isRequired()->end()
             ->scalarNode('platform_version')->cannotBeEmpty()->isRequired()->end()
-            ->scalarNode('jira_client_id')->cannotBeEmpty()->isRequired()->end()
-            ->scalarNode('jira_client_key')->cannotBeEmpty()->isRequired()->end()
             ->end();
     }
 
@@ -85,8 +83,6 @@ final class XrayReportExtension implements Extension
 
         $definition->addArgument($config['browser']);
         $definition->addArgument($config['platform_version']);
-        $definition->addArgument((string) $envValues['JIRA_USERNAME']);
-        $definition->addArgument((string) $envValues['JIRA_PASSWORD']);
 
         $container->setDefinition(Client::class, $definition);
 
