@@ -79,7 +79,7 @@ final class Client
         return $response->getContent();
     }
 
-    public function editExecutionTestResult(array $data)
+    public function editExecutionTestResult($data)
     {
         $now = new \DateTime();
         $body = [
@@ -92,10 +92,15 @@ final class Client
             ]
         ];
 
-        $this->clientHttp->request('POST', $data['self'], [
+        $response = $this->clientHttp->request('PUT', $data->self, [
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode($body),
         ]);
+
+        if ($response->getStatusCode() !== 200) {
+            var_dump($response->getContent(false));
+            throw new XrayReportException('Edit execution result fail - status '.$response->getStatusCode());
+        }
     }
 
     /**
