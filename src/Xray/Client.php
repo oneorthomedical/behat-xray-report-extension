@@ -98,16 +98,11 @@ final class Client
             ]
         ];
 
-        $response = $this->clientHttp->request('PUT', $data->self, [
+        $this->clientHttp->request('PUT', $data->self, [
             'auth_basic' => [$this->jiraClient, $this->jiraToken],
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode($body),
         ]);
-
-        if ($response->getStatusCode() !== 200 && $response->getStatusCode() !== 204) {
-            var_dump($response->getContent(false));
-            throw new XrayReportException('Edit execution result fail - status '.$response->getStatusCode());
-        }
     }
 
     /**
