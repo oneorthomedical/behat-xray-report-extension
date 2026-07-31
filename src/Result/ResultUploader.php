@@ -20,14 +20,14 @@ final class ResultUploader implements EventSubscriberInterface
         $this->resultPath = $resultPath;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             TestworkEvent\ExerciseCompleted::AFTER => ['onAfterExercise', -2000],
         ];
     }
 
-    public function onAfterExercise(TestworkEvent\ExerciseCompleted $event)
+    public function onAfterExercise(TestworkEvent\ExerciseCompleted $event): void
     {
         echo __METHOD__."\n";
         $finder = new Finder();

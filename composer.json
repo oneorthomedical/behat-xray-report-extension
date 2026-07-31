@@ -8,11 +8,12 @@
         "ext-json": "*",
         "behat/behat": "^3.8",
         "pietaj/behat-cucumber-json-formatter": "^1.0",
-        "symfony/finder": "^5.0",
-        "symfony/http-client": "^5.0",
-        "symfony/mime": "^5.0"
+        "symfony/finder": "^5.0||^6.4",
+        "symfony/http-client": "^5.0||^6.4",
+        "symfony/mime": "^5.0||^6.4"
     },
     "require-dev": {
+        "rector/rector": "^2.5"
     },
     "autoload": {
         "psr-4": {
