@@ -18,32 +18,20 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class XrayReportExtension implements Extension
 {
-    /**
-     * {@inheritDoc}
-     */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getConfigKey()
     {
         return 'xray_report';
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function initialize(ExtensionManager $extensionManager)
+    public function initialize(ExtensionManager $extensionManager): void
     {
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function configure(ArrayNodeDefinition $builder)
+    public function configure(ArrayNodeDefinition $builder): void
     {
         $builder
             ->children()
@@ -55,10 +43,7 @@ final class XrayReportExtension implements Extension
             ->end();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function load(ContainerBuilder $container, array $config)
+    public function load(ContainerBuilder $container, array $config): void
     {
         $extensions = $container->getParameter('extensions');
 

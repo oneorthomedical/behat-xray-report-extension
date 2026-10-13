@@ -19,7 +19,7 @@ final class FeatureUpdater implements EventSubscriberInterface
         $this->client = $client;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             TestworkEvent\ExerciseCompleted::BEFORE => ['onBeforeExercise', 2000],

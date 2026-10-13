@@ -35,9 +35,8 @@ final class Client
         string $jiraClient,
         string $jiraToken,
         string $browser,
-        string $platformVersion
-    )
-    {
+        string $platformVersion,
+    ) {
         $this->apiUrl = rtrim($apiUrl, '/');
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
@@ -49,7 +48,7 @@ final class Client
         $this->platformVersion = $platformVersion;
     }
 
-    public function uploadFeatureFile(string $path)
+    public function uploadFeatureFile(string $path): void
     {
         $token = $this->authenticate();
 
@@ -85,17 +84,17 @@ final class Client
         return $response->getContent();
     }
 
-    public function editExecutionTestResult($data)
+    public function editExecutionTestResult($data): void
     {
         $now = new \DateTime();
         $body = [
-            "fields" => [
-                "summary" => $now->format('d.m.Y')."-".$this->browser."-".$this->platformVersion,
-                "customfield_10131" => "100",
-                "customfield_10130" => [
-                    "value" => "Windows"
-                ]
-            ]
+            'fields' => [
+                'summary' => $now->format('d.m.Y').'-'.$this->browser.'-'.$this->platformVersion,
+                'customfield_10131' => '100',
+                'customfield_10130' => [
+                    'value' => 'Windows',
+                ],
+            ],
         ];
 
         $this->clientHttp->request('PUT', $data->self, [
